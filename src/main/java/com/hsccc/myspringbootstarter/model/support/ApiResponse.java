@@ -6,11 +6,12 @@ import java.util.Date;
 
 @Data
 public class ApiResponse<T> {
+    // TODO: impl a builder
     String path;
     int code;
     String message;
     Long timestamp = new Date().getTime();
-    T payload;
+    T data;
 
 
     public ApiResponse(int code, String message) {
@@ -24,16 +25,21 @@ public class ApiResponse<T> {
         this.message = message;
     }
 
-    public ApiResponse(int code, String message, T payload) {
+    public ApiResponse(int code, T data) {
         this.code = code;
-        this.message = message;
-        this.payload = payload;
+        this.data = data;
     }
 
-    public ApiResponse(String path, int code, String message, T payload) {
+    public ApiResponse(int code, String message, T data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
+
+    public ApiResponse(String path, int code, String message, T data) {
         this.path = path;
         this.code = code;
         this.message = message;
-        this.payload = payload;
+        this.data = data;
     }
 }

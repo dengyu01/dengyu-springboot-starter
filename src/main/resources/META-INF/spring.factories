@@ -1,0 +1,5 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.hsccc.myspringbootstarter.autoconfigure.controlleradvice.ControllerAdviceAutoConfiguration,\
+    com.hsccc.myspringbootstarter.autoconfigure.security.SecurityAutoConfiguration
+    

@@ -3,6 +3,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+**/application-private.yml
 
 ### STS ###
 .apt_generated
@@ -11,7 +12,7 @@ target/
 .project
 .settings
 .springBeans
-.sts4-cache
+.sts4-ICache
 
 ### IntelliJ IDEA ###
 .idea

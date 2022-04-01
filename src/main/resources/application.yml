@@ -1,1 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/test_db?characterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
+myspringbootstarter:
+  cache:
+    mode: local
+    # token令牌标识
+    token-header: Authorization
+    # 令牌密钥
+    token-secret: Eu5nK3gjUMPwCcmXc3eMUQT2G8VEu+numIt2ZPGbst4=
+    # 令牌有效期（默认30分钟）
+    expire-time: 30
+
+mybatis-plus:
+  configuration:
+    # 日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
