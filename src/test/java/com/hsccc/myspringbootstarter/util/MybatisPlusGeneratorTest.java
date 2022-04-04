@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Collections;
 
 public class MybatisPlusGeneratorTest {
-    @Test
+//    @Test
     @Disabled
     void generator() {
         String projectPath = System.getProperty("user.dir");

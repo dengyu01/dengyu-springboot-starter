@@ -3,6 +3,7 @@ package com.hsccc.myspringbootstarter.controller;
 import com.hsccc.myspringbootstarter.model.dto.AuthDto;
 import com.hsccc.myspringbootstarter.model.dto.LoginDto;
 import com.hsccc.myspringbootstarter.service.AuthService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,7 +16,7 @@ public class AuthController {
     }
 
     @PostMapping("token")
-    public AuthDto signToken(@RequestBody LoginDto userParam) {
+    public AuthDto signToken(@RequestBody @Validated LoginDto userParam) {
         return authService.signToken(userParam);
     }
 

@@ -1,5 +1,5 @@
 # my-springboot-starter
-基于Springboot自动配置原理实现的一个crud starter，开箱即用。在Springboot项目中，用maven或者其他方式引入my-springboot-starter的jar包，立即拥有一套基于SpringSecurity+Jwt实现的一套权限管理系统（待完善）、统一的响应格式和异常处理、一些常用的工具类...
+基于Springboot自动配置原理实现的一个crud starter，开箱即用。在Springboot项目中，用maven或者其他方式引入my-springboot-starter的jar包，立即拥有一套基于SpringSecurity+Jwt实现的一套权限管理系统（待完善）、统一的响应格式和异常处理、一些常用的工具类等
 
 ## 初始配置
 1. 将my-springboot-starter的jar包安装到本地仓库：
@@ -14,7 +14,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </dependency>
     ```
-3. 目前需要手动在数据库创建表，建表语句见init.sql文件，用的是mysql数据库。
+3. 目前需要手动在数据库创建相关表，建表语句见init.sql文件，用的是mysql数据库。
 4. 在新项目的配置文件中引入数据库配置：
    ```yaml
    spring:
@@ -29,7 +29,7 @@
 ## 功能简介
 
 ### 权限管理 
-权限管理系统参考了[RuoYi-Vue](http://doc.ruoyi.vip/ruoyi-vue/) ，只开发了一点点，目前只提供了以下接口：
+权限管理系统参考了[RuoYi-Vue](http://doc.ruoyi.vip/ruoyi-vue/) ，只开发了一点点，暂时只提供了以下接口：
 - 登录（获取Token）
    ```
    POST '127.0.0.1:8080/auth/token' \
