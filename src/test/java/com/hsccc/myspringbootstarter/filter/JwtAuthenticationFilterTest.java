@@ -7,17 +7,14 @@ import com.hsccc.myspringbootstarter.exception.ApiException;
 import com.hsccc.myspringbootstarter.model.dto.LoginDto;
 import com.hsccc.myspringbootstarter.model.dto.UserDetail;
 import com.hsccc.myspringbootstarter.model.entity.User;
-import com.hsccc.myspringbootstarter.service.TokenService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
 class JwtAuthenticationFilterTest extends ControllerBaseTest {

@@ -1,13 +1,11 @@
 package com.hsccc.myspringbootstarter.service;
 
-import com.hsccc.myspringbootstarter.core.cache.ICache;
 import com.hsccc.myspringbootstarter.exception.ApiException;
 import com.hsccc.myspringbootstarter.model.dto.AuthDto;
 import com.hsccc.myspringbootstarter.model.dto.LoginDto;
 import com.hsccc.myspringbootstarter.model.dto.UserDetail;
 import com.hsccc.myspringbootstarter.model.entity.User;
 import com.hsccc.myspringbootstarter.service.impl.UserServiceImpl;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

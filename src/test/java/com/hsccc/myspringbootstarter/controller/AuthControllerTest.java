@@ -2,22 +2,14 @@ package com.hsccc.myspringbootstarter.controller;
 
 import com.hsccc.myspringbootstarter.base.ControllerBaseTest;
 import com.hsccc.myspringbootstarter.core.common.ApiResponseAdvice;
-import com.hsccc.myspringbootstarter.core.handler.ApiExceptionHandler;
 import com.hsccc.myspringbootstarter.exception.ApiException;
 import com.hsccc.myspringbootstarter.model.dto.AuthDto;
 import com.hsccc.myspringbootstarter.model.dto.LoginDto;
-import com.hsccc.myspringbootstarter.model.support.ApiResponse;
 import com.hsccc.myspringbootstarter.service.AuthService;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.test.web.reactive.server.WebTestClient;
-
-import javax.validation.ValidationException;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
 
@@ -26,18 +18,11 @@ class AuthControllerTest extends ControllerBaseTest {
     private AuthService authService;
     @MockBean
     private ApiResponseAdvice apiResponseAdvice;
-//    @MockBean
-//    private ApiExceptionHandler apiExceptionHandler;
-//    @Autowired
-//    TestRestTemplate restTemplate;
 
     private static LoginDto loginDto;
 
 
     private static final String loginUrl = "/auth/token";
-
-//    @Autowired
-//    MockMvcProxy mvc;
 
     @BeforeAll
     static void setUp() {
@@ -125,19 +110,6 @@ class AuthControllerTest extends ControllerBaseTest {
                 .jsonPath("$.data.password")
                 .isEqualTo("密码不能为空");
     }
-
-    //    @Test
-//    void signToken2() throws Exception {
-//        AuthDto testToken = new AuthDto("test");
-//        given(this.authService.signToken(loginDto)).willReturn(testToken);
-//        AuthDto object = restTemplate.postForObject(loginUrl, loginDto, AuthDto.class);
-////        AuthDto authDto = (AuthDto) Objects.requireNonNull(object.get());
-//        assertEquals(object.getToken(), testToken.getToken());
-//        System.out.println(object);
-////
-////        ResultActions post = mvc.post(loginUrl, loginDto);
-////        post.andExpect(status().isOk());
-//    }
 
     @Test
     void logout() {

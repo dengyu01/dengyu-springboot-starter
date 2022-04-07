@@ -15,7 +15,7 @@ public class UserMapperTest {
     @Autowired
     UserMapper userMapper;
 
-//    @Test
+    @Test
     @Disabled
     void selectListTest() {
         List<User> users = userMapper.selectList(null);
