@@ -32,6 +32,7 @@ public class AuthService {
     public AuthDto signToken(LoginDto userParam) {
         // TODO: 验证码、用邮箱或者手机登录
         // TODO: 日志记录登录操作
+        // 验证用户名和密码
         var authenticationToken =
                 new UsernamePasswordAuthenticationToken(userParam.getUserName(), userParam.getPassword());
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);

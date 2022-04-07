@@ -1,10 +1,14 @@
 package com.hsccc.myspringbootstarter.model.support;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ApiResponse<T> {
     // TODO: impl a builder
     String path;
