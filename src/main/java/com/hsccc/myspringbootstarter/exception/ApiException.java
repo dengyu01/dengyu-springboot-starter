@@ -1,22 +1,32 @@
 package com.hsccc.myspringbootstarter.exception;
 
-import lombok.Getter;
-import org.springframework.http.HttpStatus;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.hsccc.myspringbootstarter.model.enums.ErrorInfo;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-@Getter
+@Data
+@EqualsAndHashCode(callSuper = true)
+@JsonSerialize(using = ApiExceptionSerializer.class)
 public class ApiException extends RuntimeException {
-    protected final Object errorData;
-    protected final HttpStatus status;
 
-    ApiException(ApiExceptionBuilder<?> builder) {
-        super(builder.getMessage(), builder.getThrowable());
-        this.errorData = builder.getErrorData();
-        this.status = builder.getStatus();
+    /**
+     * 错误码
+     */
+    private final ErrorInfo errorInfo;
+
+    /**
+     * 堆栈信息
+     */
+    private String trace;
+
+    public ApiException(String message, ErrorInfo errorInfo) {
+        super(message);
+        this.errorInfo = errorInfo;
     }
 
-    public ApiException(String message, HttpStatus status) {
-        super(message);
-        this.status = status;
-        this.errorData = null;
+    public ApiException(String message, Throwable throwable, ErrorInfo errorInfo) {
+        super(message, throwable);
+        this.errorInfo = errorInfo;
     }
 }

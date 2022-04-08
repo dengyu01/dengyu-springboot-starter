@@ -5,11 +5,11 @@ import com.hsccc.myspringbootstarter.core.cache.ICache;
 import com.hsccc.myspringbootstarter.core.common.Constant;
 import com.hsccc.myspringbootstarter.exception.ApiException;
 import com.hsccc.myspringbootstarter.model.dto.UserDetail;
+import com.hsccc.myspringbootstarter.model.enums.ErrorInfo;
 import com.hsccc.myspringbootstarter.util.uuid.IdUtil;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -40,11 +40,11 @@ public class TokenService {
         try {
             uuid = parseToken(token);
         } catch (Exception e) {
-            throw new ApiException("无效的用户Token", HttpStatus.FORBIDDEN);
+            throw new ApiException("无效的用户Token", ErrorInfo.AUTHENTICATION_ERROR);
         }
         Object res = cache.getObject(getTokenCacheKey(uuid));
         if (Objects.isNull(res)) {
-            throw new ApiException("用户Token已过期，请重新登录", HttpStatus.FORBIDDEN);
+            throw new ApiException("用户Token已过期，请重新登录", ErrorInfo.AUTHENTICATION_ERROR);
         }
         return (UserDetail) res;
     }

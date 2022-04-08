@@ -1,10 +1,10 @@
 package com.hsccc.myspringbootstarter.core.handler;
 
-import com.hsccc.myspringbootstarter.core.common.Constant;
 import com.hsccc.myspringbootstarter.exception.ApiException;
+import com.hsccc.myspringbootstarter.model.enums.ErrorInfo;
 import com.hsccc.myspringbootstarter.model.support.ApiResponse;
+import com.hsccc.myspringbootstarter.util.ExceptionUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
@@ -32,31 +32,31 @@ public class ApiExceptionHandler {
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
         Map<String, String> errMap = new HashMap<>();
         fieldErrors.forEach(filedError -> errMap.put(filedError.getField(), filedError.getDefaultMessage()));
-        return new ApiResponse<>(400, Constant.BAD_REQUEST_MSG, errMap);
+        return handleApiServerException(new ApiException(errMap.toString(), e, ErrorInfo.BAD_REQUEST_PARAM));
     }
 
     /**
      * 处理 RequestBody 为空，或者请求参数格式错误导致无法解析的问题
      */
     @ExceptionHandler({HttpMessageNotReadableException.class})
-    public Object handleHttpMessageNotReadable() {
-        return new ApiResponse<>(400, Constant.BAD_REQUEST_MSG);
+    public Object handleHttpMessageNotReadable(Exception e) {
+        return baseHandle(e, ErrorInfo.BAD_REQUEST_PARAM);
     }
 
     /**
      * 处理不支持的请求方法
      */
     @ExceptionHandler({HttpRequestMethodNotSupportedException.class})
-    public Object handleRequestMethodNotSupported() {
-        return new ApiResponse<>(400, Constant.ILLEGAL_REQUEST_MSG);
+    public Object handleRequestMethodNotSupported(Exception e) {
+        return baseHandle(e, ErrorInfo.NOT_FOUND_REQUEST_METHOD);
     }
 
     /**
      * 处理不支持的请求路径
      */
     @ExceptionHandler({NoHandlerFoundException.class})
-    public Object handleNoHandlerFound() {
-        return new ApiResponse<>(404, Constant.NOT_FOUND_MSG);
+    public Object handleNoHandlerFound(Exception e) {
+        return baseHandle(e, ErrorInfo.NOT_FOUND_API);
     }
 
 
@@ -65,7 +65,7 @@ public class ApiExceptionHandler {
         if (e.getCause() instanceof ApiException apiException) {
             return handleApiServerException(apiException);
         }
-        return new ApiResponse<>(500, Map.of("message", e.getMessage()));
+        return handleGlobalException(e);
     }
 
     /**
@@ -73,24 +73,24 @@ public class ApiExceptionHandler {
      */
     @ExceptionHandler({AuthenticationException.class})
     public Object handleTokenException(AuthenticationException e) {
-        return new ApiResponse<>(403, Map.of("message", e.getMessage()));
-    }
-
-    @ExceptionHandler({ApiException.class})
-    public Object handleApiServerException(ApiException e) {
-        log.error(e.getMessage(), e);
-        HashMap<String, Object> errorMap = new HashMap<>();
-        errorMap.put("message", e.getMessage());
-        if (!Objects.isNull(e.getErrorData())) {
-            errorMap.put("errorData", e.getErrorData());
-        }
-        return new ApiResponse<>(e.getStatus().value(), errorMap);
+        return baseHandle(e, ErrorInfo.AUTHENTICATION_ERROR);
     }
 
     @ExceptionHandler({Exception.class})
     public Object handleGlobalException(Exception e) {
-        log.error(e.getMessage(), e);
-        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
-        return new ApiResponse<>(status.value(), Constant.ERROR_MSG, e);
+        return baseHandle(e, ErrorInfo.INTERNAL_SERVER_ERROR);
+    }
+
+    public ApiResponse<?> baseHandle(Exception e, ErrorInfo errorInfo) {
+        return handleApiServerException(new ApiException(e.getMessage(), e, errorInfo));
+    }
+
+    @ExceptionHandler({ApiException.class})
+    public ApiResponse<ApiException> handleApiServerException(ApiException e) {
+        //TODO: only return exception stack trace in dev mode.
+        if (!Objects.isNull(e.getCause())) {
+            e.setTrace(ExceptionUtils.getStackTrace(e.getCause()));
+        }
+        return new ApiResponse<>(e.getErrorInfo().getApiStatus(), e);
     }
 }

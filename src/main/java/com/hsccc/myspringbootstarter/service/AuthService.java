@@ -1,9 +1,9 @@
 package com.hsccc.myspringbootstarter.service;
 
 import com.hsccc.myspringbootstarter.model.dto.AuthDto;
-import com.hsccc.myspringbootstarter.model.dto.LoginDto;
 import com.hsccc.myspringbootstarter.model.dto.UserDetail;
 import com.hsccc.myspringbootstarter.model.entity.User;
+import com.hsccc.myspringbootstarter.model.query.LoginQuery;
 import com.hsccc.myspringbootstarter.util.ServletUtil;
 import com.hsccc.myspringbootstarter.util.ip.AddressUtil;
 import com.hsccc.myspringbootstarter.util.ip.IpUtil;
@@ -29,12 +29,12 @@ public class AuthService {
         this.userService = userService;
     }
 
-    public AuthDto signToken(LoginDto userParam) {
+    public AuthDto signToken(LoginQuery loginQuery) {
         // TODO: 验证码、用邮箱或者手机登录
         // TODO: 日志记录登录操作
         // 验证用户名和密码
         var authenticationToken =
-                new UsernamePasswordAuthenticationToken(userParam.getUserName(), userParam.getPassword());
+                new UsernamePasswordAuthenticationToken(loginQuery.getUserName(), loginQuery.getPassword());
         Authentication authenticate = authenticationManager.authenticate(authenticationToken);
         UserDetail userDetail = (UserDetail) authenticate.getPrincipal();
 

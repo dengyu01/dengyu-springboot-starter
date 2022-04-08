@@ -4,6 +4,7 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.hsccc.myspringbootstarter.config.properties.CacheProperties;
 import com.hsccc.myspringbootstarter.exception.ApiException;
+import com.hsccc.myspringbootstarter.model.enums.ErrorInfo;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -41,7 +42,7 @@ public class LocalICache implements ICache {
     public void setObject(String key, Object value) {
         getCache().put(getKey(key), value);
         if (getCache().getIfPresent(getKey(key)) == null) {
-            throw new ApiException("缓存服务失效", HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new ApiException("缓存服务失效", ErrorInfo.INTERNAL_SERVER_ERROR);
         }
     }
 

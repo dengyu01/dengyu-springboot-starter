@@ -6,8 +6,7 @@ import java.security.SecureRandom;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.hsccc.myspringbootstarter.exception.UtilException;
-import org.springframework.http.HttpStatus;
+import com.hsccc.myspringbootstarter.exception.ServiceException;
 
 /**
  * 提供通用唯一识别码（universally unique identifier）（UUID）实现
@@ -426,7 +425,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
         try {
             return SecureRandom.getInstance("SHA1PRNG");
         } catch (NoSuchAlgorithmException e) {
-            throw new UtilException.Builder(e.getMessage()).build();
+            throw new ServiceException.Builder(e.getMessage()).build();
         }
     }
 
