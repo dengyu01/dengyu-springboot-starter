@@ -1,49 +1,32 @@
 package com.hsccc.myspringbootstarter.model.support;
 
+import com.hsccc.myspringbootstarter.model.enums.ApiStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApiResponse<T> {
-    // TODO: impl a builder
-    String path;
-    int code;
-    String message;
-    Long timestamp = new Date().getTime();
-    T data;
+    private String path;
+    private Integer code;
+    private String message;
+    private LocalDateTime timestamp = LocalDateTime.now();
+    private T data;
 
-
-    public ApiResponse(int code, String message) {
-        this.code = code;
-        this.message = message;
-    }
-
-    public ApiResponse(String path, int code, String message) {
-        this.path = path;
-        this.code = code;
-        this.message = message;
-    }
-
-    public ApiResponse(int code, T data) {
-        this.code = code;
+    public ApiResponse(ApiStatus status, T data) {
+        this.code = status.getValue();
+        this.message = status.getMessage();
         this.data = data;
     }
 
-    public ApiResponse(int code, String message, T data) {
-        this.code = code;
-        this.message = message;
-        this.data = data;
-    }
-
-    public ApiResponse(String path, int code, String message, T data) {
+    public ApiResponse(String path, ApiStatus status, T data) {
         this.path = path;
-        this.code = code;
-        this.message = message;
+        this.code = status.getValue();
+        this.message = status.getMessage();
         this.data = data;
     }
 }

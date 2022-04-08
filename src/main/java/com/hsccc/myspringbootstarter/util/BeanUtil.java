@@ -1,6 +1,6 @@
 package com.hsccc.myspringbootstarter.util;
 
-import com.hsccc.myspringbootstarter.exception.BeanException;
+import com.hsccc.myspringbootstarter.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeanWrapper;
@@ -27,7 +27,7 @@ public class BeanUtil {
             return targetInstance;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            throw new BeanException.Builder("Failed to new " + targetClass.getName()
+            throw new ServiceException.Builder("Failed to new " + targetClass.getName()
                     + " instance or copy properties: " + e.getMessage()).build();
         }
     }
@@ -50,7 +50,7 @@ public class BeanUtil {
             BeanUtils.copyProperties(source, target, getNullPropertyNames(source));
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            throw new BeanException.Builder("Failed to copy properties: " + e.getMessage()).build();
+            throw new ServiceException.Builder("Failed to copy properties: " + e.getMessage()).build();
         }
     }
 

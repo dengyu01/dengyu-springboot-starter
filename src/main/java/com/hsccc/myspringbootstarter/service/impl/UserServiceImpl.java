@@ -5,6 +5,7 @@ import com.hsccc.myspringbootstarter.exception.ApiException;
 import com.hsccc.myspringbootstarter.model.dto.UserDetail;
 import com.hsccc.myspringbootstarter.model.entity.User;
 import com.hsccc.myspringbootstarter.mapper.UserMapper;
+import com.hsccc.myspringbootstarter.model.enums.ErrorInfo;
 import com.hsccc.myspringbootstarter.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.http.HttpStatus;
@@ -40,9 +41,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         queryWrapper.eq(User::getUserName, userName);
         User user = userMapper.selectOne(queryWrapper);
         if (Objects.isNull(user)) {
-            throw new ApiException("用户未注册", HttpStatus.FORBIDDEN);
+            throw new ApiException("用户未注册", ErrorInfo.AUTHENTICATION_ERROR);
         } else if ("1".equals(user.getStatus())) {
-            throw new ApiException("对不起，您的账号已禁用", HttpStatus.FORBIDDEN);
+            throw new ApiException("对不起，您的账号已禁用", ErrorInfo.AUTHENTICATION_ERROR);
         }
         // TODO 获取相关权限
         return new UserDetail(user);

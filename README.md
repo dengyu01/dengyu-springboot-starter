@@ -19,7 +19,7 @@
    ```yaml
    spring:
     datasource:
-      url: jdbc:mysql://ip:端口号/test_db?characterEncoding=utf-8&serverTimezone=UTC
+      url: jdbc:mysql://ip:端口号/test_db?characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
       username: 用户名
       password: 密码
       driver-class-name: com.mysql.cj.jdbc.Driver
@@ -53,36 +53,29 @@
 所有的接口都会自动被封装一层：
 ```json
 {
-    "path": "/auth/token",
-    "code": 200,
-    "message": "操作成功",
-    "timestamp": 1648808073583,
-    "data": {
-        "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwZDZkZmFjNC02YWRiLTQyZWQtOGQ0ZS1hZDU2ZTQ3YWUzOGEifQ.axWqVxy6Qf6VJ2JEyNG87hSvHHfzzTF7tAWZE45xdHI"
-    }
+  "path": "/auth/token",
+  "code": 200,
+  "message": "操作成功",
+  "timestamp": "2022-04-08T20:19:44.7052939",
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4ZGM3MmY3My0wM2VjLTRiZGQtOWE2Ny1mMGIxNDRhMGI0ZDUifQ.SHxKL3tcDvl_pdnwkt0FqNH0-cB5FBmhzjC4ToqVtT0"
+  }
 }
 ```
-### 自定义异常
-简化了定义异常的冗余代码：
-```java
-public class UtilException extends ApiException {
-    UtilException(ApiExceptionBuilder<?> builder) {
-        super(builder);
-    }
-
-    public static class Builder extends ApiExceptionBuilder<UtilException> {
-        public Builder(String message) {
-            super(UtilException.class);
-            message(message);
-            status(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+异常时的响应：
+```json
+{
+  "path": "/auth/token",
+  "code": 500,
+  "message": "服务器内部异常",
+  "timestamp": "2022-04-08T20:30:00.8121861",
+  "data": {
+    "error_message": "nested exception is org.apache.ibatis.exceptions.PersistenceException: \r\n### Error querying database...（错误信息）",
+    "trace": "...（堆栈信息）", 
+    "advice": "对不起，系统开小差了，请稍后再试（用户提示信息）",
+    "error_code": "B000（错误码）"
+  }
 }
-```
-使用：
-```java
-throw new UtilException.Builder(e.getMessage()).build();
-throw new OtherException.Builder().message(message).errorData(data).throwable(e).status(HttpStatus.FORBIDDEN).build();
 ```
 
 ### BeanUtil

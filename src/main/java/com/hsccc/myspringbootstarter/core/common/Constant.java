@@ -3,12 +3,8 @@ package com.hsccc.myspringbootstarter.core.common;
 import java.io.File;
 
 public class Constant {
-    public static final String SUCCESS_MSG = "操作成功";
-    public static final String FORBIDDEN_MSG = "权限不足";
-    public static final String NOT_FOUND_MSG = "资源不存在";
-    public static final String ERROR_MSG = "服务器内部异常";
-    public static final String BAD_REQUEST_MSG = "非法请求，请检查参数";
-    public static final String ILLEGAL_REQUEST_MSG = "非法请求";
+    public static final String SERVER_ERROR_USER_TIP = "对不起，系统开小差了，请稍后再试";
+    public static final String BAD_REQUEST_USER_TIP = "请求有误, 请检查参数";
 
     public static final String FILE_SEPARATOR = File.separator;
 

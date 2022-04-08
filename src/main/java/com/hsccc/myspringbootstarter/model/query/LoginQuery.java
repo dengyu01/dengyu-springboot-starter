@@ -1,4 +1,4 @@
-package com.hsccc.myspringbootstarter.model.dto;
+package com.hsccc.myspringbootstarter.model.query;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
-public class LoginDto {
+public class LoginQuery {
     /**
      * 用户名
      */

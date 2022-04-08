@@ -1,15 +1,17 @@
 package com.hsccc.myspringbootstarter.exception;
 
+import com.hsccc.myspringbootstarter.model.enums.ErrorInfo;
 import lombok.Data;
 import lombok.SneakyThrows;
-import org.springframework.http.HttpStatus;
+
+import java.util.Objects;
 
 @Data
+@Deprecated
 public class ApiExceptionBuilder<T extends ApiException> {
     private String message;
+    private ErrorInfo errorInfo;
     private Throwable throwable;
-    private Object errorData;
-    private HttpStatus status;
 
     protected Class<T> exceptionClass;
 
@@ -24,16 +26,14 @@ public class ApiExceptionBuilder<T extends ApiException> {
 
     public ApiExceptionBuilder<T> throwable(Throwable throwable) {
         this.throwable = throwable;
+        if (Objects.isNull(this.message)) {
+            this.message = throwable.getMessage();
+        }
         return this;
     }
 
-    public ApiExceptionBuilder<T> errorData(Object errorData) {
-        this.errorData = errorData;
-        return this;
-    }
-
-    public ApiExceptionBuilder<T> status(HttpStatus status) {
-        this.status = status;
+    public ApiExceptionBuilder<T> code(ErrorInfo errorCode) {
+        this.errorInfo = errorCode;
         return this;
     }
 
