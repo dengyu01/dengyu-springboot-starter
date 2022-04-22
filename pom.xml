@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.hsccc</groupId>
     <artifactId>my-springboot-starter</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>my-springboot-starter</name>
     <description>my-springboot-starter</description>
     <properties>
@@ -23,6 +23,7 @@
         <jsonwebtoken.version>0.11.2</jsonwebtoken.version>
         <fastjson.version>1.2.33</fastjson.version>
         <guava.version>31.1-jre</guava.version>
+        <hutool.version>5.7.18</hutool.version>
     </properties>
     <dependencies>
         <!-- spring framework -->
@@ -129,7 +130,11 @@
             <version>${guava.version}</version>
         </dependency>
 
-
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

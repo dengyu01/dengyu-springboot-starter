@@ -6,7 +6,8 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.hsccc.myspringbootstarter.model.enums.ErrorInfo;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class ApiExceptionSerializer extends JsonSerializer<ApiException> {
@@ -14,7 +15,7 @@ public class ApiExceptionSerializer extends JsonSerializer<ApiException> {
     public void serialize(ApiException apiException, JsonGenerator jsonGenerator,
                           SerializerProvider serializerProvider) throws IOException {
         //TODO: refactor
-        HashMap<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new LinkedHashMap<>();
         ErrorInfo errorInfo = apiException.getErrorInfo();
         map.put("error_code", errorInfo.getValue());
         map.put("error_message", apiException.getMessage());

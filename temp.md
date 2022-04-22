@@ -4,7 +4,7 @@
 ## 初始配置
 1. 将my-springboot-starter的jar包安装到本地仓库：
    ``` 
-   mvn clean install -DSkiptests
+   mvn clean install -DskipTests
    ```
 2. 在新项目中引入jar包（注意jar包冲突，my-springboot-starter依赖了一些常用jar包）：
     ```xml
@@ -78,8 +78,8 @@
 }
 ```
 
-### BeanUtil
-在spring的BeanUtils上封装了一层，用法如下：
+### ~~BeanUtil~~
+~~在spring的BeanUtils上封装了一层，用法如下：~~
 ```java
 // 1. 一行代码搞定Entity、DTO转换
 TargetClass targetObject = BeanUtil.convert(sourceObject, TargetClass.class);

@@ -13,20 +13,20 @@ import java.time.LocalDateTime;
 public class ApiResponse<T> {
     private String path;
     private Integer code;
-    private String message;
+    private String msg;
     private LocalDateTime timestamp = LocalDateTime.now();
     private T data;
 
     public ApiResponse(ApiStatus status, T data) {
         this.code = status.getValue();
-        this.message = status.getMessage();
+        this.msg = status.getMessage();
         this.data = data;
     }
 
     public ApiResponse(String path, ApiStatus status, T data) {
         this.path = path;
         this.code = status.getValue();
-        this.message = status.getMessage();
+        this.msg = status.getMessage();
         this.data = data;
     }
 }
